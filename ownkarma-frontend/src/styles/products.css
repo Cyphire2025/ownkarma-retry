@@ -1,0 +1,27 @@
+/* ── Page shell ── */
+.products-page-gallery-shell {
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    background: #050505;
+    color: #f8f4ec;
+}
+
+.products-page-gallery-sticky {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ── Card gallery canvas — pointer-events ON so CircularGallery catches wheel/clicks ── */
+/* Wheel events also bubble up to .products-page-gallery-sticky → handlePageWheel → model rotates */
+.products-page-gallery-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: auto;
+}

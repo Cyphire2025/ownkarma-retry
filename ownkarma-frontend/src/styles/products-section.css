@@ -1,0 +1,235 @@
+/* Products Section Styles */
+.products-section {
+    min-height: 100vh;
+    padding: 8rem 4rem;
+    background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+}
+
+.products-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.products-header {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.products-header h2 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.products-header p {
+    font-size: 1.25rem;
+    color: #999;
+    font-weight: 300;
+}
+
+.products-loading, .products-error, .products-empty {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #999;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 320px));
+    gap: 2.5rem;
+    justify-content: center;
+    justify-items: center;
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Product Card */
+.product-card {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    background: rgba(15, 15, 15, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at 50% 50%,
+        rgba(var(--product-glow), 0.15) 0%,
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(var(--product-glow), 0.3);
+   box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(var(--product-glow), 0.2);
+}
+
+.product-card:hover::before {
+    opacity: 1;
+}
+
+.product-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    background: rgba(20, 20, 20, 0.8);
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+.product-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+}
+
+.product-image-placeholder span {
+    color: #444;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.product-info {
+    padding: 1.75rem;
+    position: relative;
+    z-index: 1;
+}
+
+.product-title {
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+}
+
+.product-subtitle {
+    font-size: 0.9375rem;
+    color: #999;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    font-weight: 300;
+}
+
+.product-pricing {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.product-price {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+}
+
+.product-compare-price {
+    font-size: 1rem;
+    color: #666;
+    text-decoration: line-through;
+    font-weight: 400;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 280px));
+        gap: 2rem;
+    }
+
+    .product-card {
+        max-width: 280px;
+    }
+}
+
+@media (max-width: 768px) {
+    .products-section {
+        padding: 5rem 2rem;
+    }
+
+    .products-header h2 {
+        font-size: 2.5rem;
+    }
+
+    .products-header p {
+        font-size: 1.125rem;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 240px));
+        gap: 1.5rem;
+    }
+
+    .product-card {
+        max-width: 240px;
+    }
+
+    .product-title {
+        font-size: 1.25rem;
+    }
+
+    .product-subtitle {
+        font-size: 0.875rem;
+    }
+
+    .product-price {
+        font-size: 1.125rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .product-card {
+        max-width: 100%;
+    }
+}

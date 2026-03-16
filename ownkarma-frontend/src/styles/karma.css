@@ -1,0 +1,380 @@
+/* Karma Page - Scroll Layout with Cloud Transition */
+
+.karma-page-scroll {
+    width: 100%;
+    background: #000;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* Video Section - Full Height */
+.video-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Back Button */
+.back-button {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 200;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 0;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.back-button:hover {
+    color: white;
+    transform: translateX(-5px);
+}
+
+/* Header */
+.karma-header {
+    position: absolute;
+    bottom: 6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    text-align: center;
+    animation: fadeIn 1s ease-out;
+}
+
+.karma-header h1 {
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 0.5em;
+    margin: 0 0 0.3rem 0;
+    color: white;
+    transition: opacity 0.3s ease;
+}
+
+.karma-header h1:hover {
+    opacity: 0.7;
+}
+
+.karma-header p {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    opacity: 0.5;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* Canvas */
+.karma-canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform;
+    display: block;
+    z-index: 1;
+}
+
+/* Cloud Transition Effect */
+.cloud-transition {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.8) 20%,
+            rgba(0, 0, 0, 0.4) 50%,
+            rgba(0, 0, 0, 0) 100%);
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Animated fog/cloud effect */
+.cloud-transition::before,
+.cloud-transition::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 200px;
+    background: radial-gradient(ellipse at center,
+            rgba(255, 255, 255, 0.03) 0%,
+            transparent 70%);
+    animation: cloudDrift 15s ease-in-out infinite;
+}
+
+.cloud-transition::after {
+    animation-delay: -7.5s;
+    animation-direction: reverse;
+}
+
+@keyframes cloudDrift {
+
+    0%,
+    100% {
+        transform: translateX(-10%);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translateX(10%);
+        opacity: 1;
+    }
+}
+
+/* Content Sections */
+.content-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem;
+    background: #000;
+}
+
+.ideation-section {
+    background: radial-gradient(ellipse at center, #0d0d0d 0%, #000000 100%);
+}
+
+.engineering-section {
+    background: radial-gradient(ellipse at center, #0d0d0d 0%, #000000 100%);
+}
+
+.content-container {
+    max-width: 1400px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+}
+
+.content-container.reverse {
+    direction: rtl;
+}
+
+.content-container.reverse>* {
+    direction: ltr;
+}
+
+/* Content Text */
+.content-text {
+    animation: fadeInUp 1s ease-out;
+}
+
+.section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    opacity: 0.5;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2rem;
+}
+
+.content-text h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.2;
+    margin: 0 0 2rem 0;
+    letter-spacing: -0.02em;
+}
+
+.content-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    opacity: 0.7;
+    font-weight: 300;
+    margin: 0;
+}
+
+/* Gold Accent for Karma */
+.content-text strong {
+    color: #ffd700;
+    font-weight: 400;
+}
+
+/* Content Image */
+.content-image {
+    animation: fadeInUp 1s ease-out 0.2s backwards;
+}
+
+.image-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.image-placeholder::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.1) 50%,
+            transparent 100%);
+    animation: shimmer 3s infinite;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+/* CTA Section */
+.cta-section {
+    position: relative;
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem;
+    background: #000;
+    text-align: center;
+}
+
+.cta-section h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin: 0 0 1rem 0;
+}
+
+.cta-section p {
+    font-size: 1.2rem;
+    opacity: 0.6;
+    margin: 0 0 3rem 0;
+    font-weight: 300;
+}
+
+.cta-button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    padding: 1.2rem 3rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 4px;
+    backdrop-filter: blur(10px);
+}
+
+.cta-button:hover {
+    background: rgba(255, 215, 0, 0.1);
+    border-color: rgba(255, 215, 0, 0.3);
+    color: #ffd700;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .content-container {
+        grid-template-columns: 1fr;
+    }
+
+    .content-container.reverse {
+        direction: ltr;
+    }
+}
+
+@media (max-width: 768px) {
+    .back-button {
+        top: 1rem;
+        left: 1rem;
+        font-size: 0.8rem;
+    }
+
+    .karma-header {
+        top: 1rem;
+    }
+
+    .karma-header h1 {
+        font-size: 1.5rem;
+        letter-spacing: 0.3em;
+    }
+
+    .karma-header p {
+        font-size: 0.55rem;
+    }
+
+    .content-section {
+        padding: 4rem 1.5rem;
+    }
+
+    .content-text h2 {
+        font-size: 2rem;
+    }
+
+    .content-text p {
+        font-size: 1rem;
+    }
+
+    .cta-section {
+        padding: 4rem 1.5rem;
+    }
+}

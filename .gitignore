@@ -1,0 +1,10 @@
+node_modules/
+.env
+.medusa/
+yarn.lock
+package-lock.json
+*.log
+dist/
+.DS_Store
+.vscode/
+.idea/

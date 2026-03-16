@@ -1,0 +1,110 @@
+/* Cart Icon Styles */
+.cart-icon-button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #fff;
+    padding: 0.75rem;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 9998;
+    width: 48px;
+    height: 48px;
+}
+
+.cart-icon-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cart-icon-button:active {
+    transform: translateY(0);
+}
+
+.cart-icon-button.fixed {
+    position: fixed;
+    top: 1.5rem;
+    right: 2rem;
+}
+
+@media (max-width: 768px) {
+    .cart-icon-button.fixed {
+        top: 1rem;
+        right: 1rem;
+        width: 44px;
+        height: 44px;
+        padding: 0.65rem;
+    }
+}
+
+.cart-icon-button svg {
+    width: 24px;
+    height: 24px;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #000;
+    font-size: 0.7rem;
+    font-weight: 700;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    border: 2px solid #000;
+    animation: badgePop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+}
+
+@keyframes badgePop {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Pulse animation when items are added */
+.cart-icon-button.pulse {
+    animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* IntroPage specific positioning (next to mute button) */
+.cart-icon-intro {
+    position: fixed;
+    top: auto;
+    right: auto;
+    /* Will be positioned via inline styles based on mute button location */
+}

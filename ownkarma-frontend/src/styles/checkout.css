@@ -1,0 +1,502 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap');
+
+.checkout-page {
+    --ck-bg: #050608;
+    --ck-bg-2: #0a0d12;
+    --ck-surface: rgba(17, 20, 27, 0.76);
+    --ck-surface-strong: rgba(20, 24, 32, 0.88);
+    --ck-line: rgba(255, 255, 255, 0.13);
+    --ck-line-soft: rgba(255, 255, 255, 0.08);
+    --ck-text: #f8f2e9;
+    --ck-muted: rgba(248, 242, 233, 0.66);
+    --ck-gold: #d6b07a;
+    --ck-gold-soft: rgba(214, 176, 122, 0.24);
+    --ck-shadow: 0 28px 80px rgba(0, 0, 0, 0.55);
+
+    min-height: 100vh;
+    position: relative;
+    color: var(--ck-text);
+    font-family: 'Manrope', sans-serif;
+    padding: clamp(5rem, 9vh, 6.5rem) 2rem 3rem;
+    background:
+        radial-gradient(1200px 700px at 10% 10%, rgba(178, 132, 81, 0.2), transparent 55%),
+        radial-gradient(1100px 680px at 90% 8%, rgba(77, 98, 148, 0.16), transparent 52%),
+        linear-gradient(160deg, var(--ck-bg-2), var(--ck-bg));
+    overflow-x: hidden;
+}
+
+.checkout-page::before,
+.checkout-page::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+.checkout-page::before {
+    background-image:
+        radial-gradient(1px 1px at 12% 14%, rgba(255, 255, 255, 0.62), transparent 60%),
+        radial-gradient(1px 1px at 24% 56%, rgba(255, 255, 255, 0.45), transparent 60%),
+        radial-gradient(1.4px 1.4px at 38% 30%, rgba(255, 255, 255, 0.55), transparent 65%),
+        radial-gradient(1.2px 1.2px at 58% 18%, rgba(255, 255, 255, 0.48), transparent 60%),
+        radial-gradient(1px 1px at 76% 64%, rgba(255, 255, 255, 0.45), transparent 60%),
+        radial-gradient(1.6px 1.6px at 88% 28%, rgba(255, 238, 204, 0.35), transparent 70%);
+    opacity: 0.45;
+}
+
+.checkout-page::after {
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.05), transparent 28%, transparent 70%, rgba(255, 255, 255, 0.03));
+    opacity: 0.28;
+}
+
+.checkout-page.empty,
+.checkout-page.success {
+    display: grid;
+    place-items: center;
+}
+
+.checkout-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1320px;
+    margin: 0 auto;
+}
+
+.checkout-page .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    border: 1px solid var(--ck-line);
+    border-radius: 999px;
+    background: rgba(10, 12, 16, 0.6);
+    color: var(--ck-muted);
+    padding: 0.55rem 0.95rem;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 1.7rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.23s ease;
+}
+
+.checkout-page .back-button:hover {
+    color: #fff;
+    border-color: rgba(214, 176, 122, 0.58);
+    background: rgba(39, 31, 19, 0.5);
+    transform: translateX(-3px);
+}
+
+.checkout-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 410px);
+    gap: clamp(1.2rem, 2.8vw, 2.8rem);
+}
+
+.checkout-form {
+    background: var(--ck-surface);
+    border: 1px solid var(--ck-line);
+    border-radius: 20px;
+    padding: clamp(1.2rem, 2.2vw, 2rem);
+    box-shadow: var(--ck-shadow);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.checkout-form h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4.8vw, 3.3rem);
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: 0.04em;
+    margin-bottom: 1.2rem;
+    color: #fff3e0;
+    text-transform: uppercase;
+}
+
+.user-info-banner {
+    border: 1px solid rgba(214, 176, 122, 0.35);
+    background: rgba(214, 176, 122, 0.12);
+    color: #f9e3be;
+    border-radius: 12px;
+    padding: 0.78rem 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 1.2rem;
+    font-size: 0.82rem;
+}
+
+.user-info-banner svg {
+    color: rgba(248, 222, 182, 0.9);
+    flex-shrink: 0;
+}
+
+.checkout-inline-error {
+    margin: 0 0 1rem;
+    border: 1px solid rgba(255, 124, 124, 0.5);
+    border-radius: 12px;
+    background: rgba(223, 84, 84, 0.14);
+    color: #ffc1c1;
+    padding: 0.74rem 0.82rem;
+    font-size: 0.8rem;
+}
+
+.form-section {
+    margin-bottom: 1.55rem;
+    padding: 1rem;
+    border: 1px solid var(--ck-line-soft);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.form-section h2 {
+    margin-bottom: 0.9rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #f0d4a9;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 0.9rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: var(--ck-muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.form-group input {
+    width: 100%;
+    height: 42px;
+    border: 1px solid var(--ck-line);
+    border-radius: 10px;
+    background: rgba(7, 9, 12, 0.62);
+    color: var(--ck-text);
+    padding: 0 0.85rem;
+    font-size: 0.9rem;
+    transition: all 0.22s ease;
+}
+
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.32);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: rgba(214, 176, 122, 0.6);
+    box-shadow: 0 0 0 3px rgba(214, 176, 122, 0.16);
+    background: rgba(14, 12, 9, 0.58);
+}
+
+.form-group input:read-only {
+    border-color: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.7rem;
+}
+
+.shipping-options {
+    display: grid;
+    gap: 0.7rem;
+}
+
+.payment-option {
+    border: 1px solid var(--ck-line);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.75rem 0.85rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    cursor: pointer;
+    transition: all 0.22s ease;
+}
+
+.payment-option:hover {
+    border-color: rgba(214, 176, 122, 0.45);
+}
+
+.payment-option.selected {
+    border-color: rgba(214, 176, 122, 0.62);
+    background: rgba(214, 176, 122, 0.12);
+}
+
+.payment-option input[type="radio"] {
+    margin-top: 0.15rem;
+    accent-color: #d7b382;
+}
+
+.payment-option label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.22rem;
+    cursor: pointer;
+}
+
+.payment-option label strong {
+    font-size: 0.86rem;
+    color: #fff4e0;
+}
+
+.payment-option label span {
+    font-size: 0.77rem;
+    color: var(--ck-muted);
+}
+
+.place-order-btn,
+.back-btn,
+.continue-btn {
+    width: 100%;
+    height: 46px;
+    border-radius: 12px;
+    border: 1px solid rgba(246, 213, 165, 0.6);
+    background: linear-gradient(120deg, #f8ddb5, #d2ab76 52%, #f0d0a1);
+    color: #1a140c;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.22s ease;
+}
+
+.place-order-btn {
+    margin-top: 0.6rem;
+}
+
+.place-order-btn:hover,
+.back-btn:hover,
+.continue-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.04);
+}
+
+.place-order-btn:disabled {
+    opacity: 0.68;
+    cursor: wait;
+}
+
+.loading-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(0, 0, 0, 0.28);
+    border-top-color: #111;
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: ckSpin 0.8s linear infinite;
+}
+
+.order-summary {
+    position: sticky;
+    top: 5.2rem;
+    background: var(--ck-surface-strong);
+    border: 1px solid var(--ck-line);
+    border-radius: 20px;
+    padding: 1.2rem;
+    box-shadow: var(--ck-shadow);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    height: fit-content;
+}
+
+.order-summary h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.65rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-bottom: 1rem;
+    color: #fff3df;
+}
+
+.summary-items {
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 0.22rem;
+}
+
+.summary-items::-webkit-scrollbar {
+    width: 6px;
+}
+
+.summary-items::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+}
+
+.summary-item {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr) auto;
+    gap: 0.7rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.item-image-small {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.item-image-small img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-info {
+    min-width: 0;
+}
+
+.item-name {
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: #fff4df;
+    margin-bottom: 0.2rem;
+}
+
+.item-size,
+.item-qty {
+    font-size: 0.74rem;
+    color: var(--ck-muted);
+}
+
+.item-price {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.summary-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+    margin: 0.85rem 0;
+}
+
+.summary-totals {
+    display: flex;
+    flex-direction: column;
+    gap: 0.52rem;
+}
+
+.checkout-page .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+}
+
+.checkout-page .summary-row span:first-child {
+    color: var(--ck-muted);
+}
+
+.checkout-page .summary-row span:last-child {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.checkout-page .summary-row.total {
+    margin-top: 0.38rem;
+    font-size: 1.02rem;
+}
+
+.empty-checkout,
+.order-success {
+    max-width: 520px;
+    text-align: center;
+    background: rgba(17, 20, 28, 0.78);
+    border: 1px solid var(--ck-line);
+    border-radius: 20px;
+    padding: clamp(2rem, 4vw, 2.8rem);
+    box-shadow: var(--ck-shadow);
+}
+
+.empty-checkout h1,
+.order-success h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    letter-spacing: 0.04em;
+    color: #fff3df;
+    margin-bottom: 0.55rem;
+}
+
+.empty-checkout p,
+.order-success p {
+    color: var(--ck-muted);
+    line-height: 1.65;
+    margin-bottom: 1.2rem;
+}
+
+.success-icon {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    display: grid;
+    place-items: center;
+    font-size: 2.2rem;
+    color: #0f120f;
+    background: linear-gradient(145deg, #9be89f, #49b44f);
+    box-shadow: 0 12px 28px rgba(56, 165, 72, 0.34);
+}
+
+.loading-spinner-large {
+    width: 50px;
+    height: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.14);
+    border-top-color: #d5b584;
+    border-radius: 50%;
+    animation: ckSpin 0.85s linear infinite;
+}
+
+@keyframes ckSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 1040px) {
+    .checkout-content {
+        grid-template-columns: 1fr;
+    }
+
+    .order-summary {
+        position: static;
+    }
+}
+
+@media (max-width: 760px) {
+    .checkout-page {
+        padding: 4.8rem 1rem 2.2rem;
+    }
+
+    .checkout-form,
+    .order-summary {
+        border-radius: 16px;
+        padding: 1rem;
+    }
+
+    .form-section {
+        padding: 0.75rem;
+    }
+
+    .checkout-form h1 {
+        font-size: clamp(1.8rem, 8vw, 2.5rem);
+    }
+}
