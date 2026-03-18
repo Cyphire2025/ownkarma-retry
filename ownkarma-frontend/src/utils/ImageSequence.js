@@ -1,5 +1,36 @@
 // Global cache for ImageSequence instances
 export const sequenceCache = {}
+const imageAssetCache = new Map()
+
+export function preloadImage(src) {
+    const encodedSrc = encodeURI(src)
+    const cached = imageAssetCache.get(encodedSrc)
+
+    if (cached?.status === 'loaded' && cached.img) {
+        return Promise.resolve(cached.img)
+    }
+
+    if (cached?.status === 'loading' && cached.promise) {
+        return cached.promise
+    }
+
+    const img = new Image()
+    const promise = new Promise((resolve, reject) => {
+        img.onload = () => {
+            imageAssetCache.set(encodedSrc, { status: 'loaded', img })
+            resolve(img)
+        }
+
+        img.onerror = (error) => {
+            imageAssetCache.delete(encodedSrc)
+            reject(error)
+        }
+    })
+
+    imageAssetCache.set(encodedSrc, { status: 'loading', promise })
+    img.src = encodedSrc
+    return promise
+}
 
 export class ImageSequence {
     static getSequence(key, canvas, folder, totalFrames, prefix, frameStep, onProgress, extension, crop = null) {
@@ -97,12 +128,11 @@ export class ImageSequence {
         if (this.images[frameIndex] !== null || this.loadingInProgress.has(frameIndex)) return
 
         this.loadingInProgress.add(frameIndex)
-        const img = new Image()
         const indexStr = (frameIndex * this.frameStep).toString().padStart(4, '0')
         const folderPath = this.folder.startsWith('/') ? this.folder : `/images/${this.folder}`
         const imgPath = `${folderPath}/${this.prefix}${indexStr}${this.extension}`
 
-        img.onload = () => {
+        preloadImage(imgPath).then((img) => {
             this.images[frameIndex] = img
             this.loadedCount++
             this.loadingInProgress.delete(frameIndex)
@@ -119,14 +149,10 @@ export class ImageSequence {
             }
 
             this.processLoadingQueue()
-        }
-
-        img.onerror = () => {
+        }).catch(() => {
             this.loadingInProgress.delete(frameIndex)
             this.processLoadingQueue()
-        }
-
-        img.src = encodeURI(imgPath)
+        })
     }
 
     preloadNearbyFrames(currentIndex) {

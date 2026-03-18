@@ -7,59 +7,59 @@ import { useAuth } from '../context/AuthContext'
 import gsap from 'gsap'
 import '../styles/divine.css'
 
-const STAGES = [
+export const STAGES = [
     {
         id: 0,
-        folder: '/varanasi images/1',
-        frames: 432,
+        folder: '/varanasi images/varn1',
+        frames: 601,
         loop: false,
         audio: '/audio/stage0.mp3',
         format: '.webp',
-        durationSec: 18,
+        durationSec: 20,
         text1: "LIVING CONSCIOUSLY",
         text2: "BUILDING OWN KARMA"
     },
     {
         id: 1,
-        folder: '/varanasi images/2',
-        frames: 1080,
+        folder: '/varanasi images/varn2',
+        frames: 617,
         loop: false,
         audio: '/audio/stage1.mp3',
         format: '.webp',
-        durationSec: 45,
+        durationSec: 20,
         text1: "We do not stand above creation",
         text2: "We live inside it"
     },
     {
         id: 2,
-        folder: '/varanasi images/3',
-        frames: 984,
+        folder: '/varanasi images/varn3',
+        frames: 625,
         loop: false,
         audio: '/audio/stage2.mp3',
         format: '.webp',
-        durationSec: 41,
+        durationSec: 20,
         text1: "Awareness is not given",
         text2: "It is built"
     },
     {
         id: 3,
-        folder: '/varanasi images/4',
-        frames: 744,
+        folder: '/varanasi images/varn4',
+        frames: 615,
         loop: false,
         audio: '/audio/stage3.mp3',
         format: '.webp',
-        durationSec: 31,
+        durationSec: 20,
         text1: "Walls are built by fear",
         text2: "Freedom begins with action"
     },
     {
         id: 4,
-        folder: '/varanasi images/5',
-        frames: 1104,
+        folder: '/varanasi images/varn5',
+        frames: 601,
         loop: false,
         audio: '/audio/stage4.mp3',
         format: '.webp',
-        durationSec: 46,
+        durationSec: 20,
         text1: "Life is not linear",
         text2: "It is lived in phases"
     }
@@ -330,21 +330,11 @@ function IntroPage() {
             // ----------------------------------------
             // --- SCROLL SPEED CONFIGURATION SECTION ---
             // ----------------------------------------
-            const MOON_SCROLL_SPEED = 60   // 1st & 3rd Video (Fast)
-            const CAR_SCROLL_SPEED = 0.9   // 2nd Video (Slow)
-
-            const MOON_MAX_VELOCITY = 1200  // Max Speed Cap for Moon (High -> Fast traverse)
-            const CAR_MAX_VELOCITY = 240    // Max Speed Cap for Car
+            // Keep scroll traversal roughly 5s for every stage.
+            const TARGET_SCROLL_TRAVERSE_SEC = 5
+            const WHEEL_DELTA_NORMALIZER = 100
+            const MAX_SCROLL_MULTIPLIER = 2
             // ----------------------------------
-
-            // Sensitivity Logic
-            // Stage 0 (Moon 1), Stage 2 (Moon 2), Stage 3 (Lambo), Stage 4 (Anime) -> ALL use Moon settings now? 
-            // The user requested Lambo/Anime to be fast.
-            // Let's keep existing logic but ensure Stage 3 is covered. 
-            // In the previous step I made Stage 3 & 4 fast.
-
-            const isFastStage = (stage === 0 || stage === 2 || stage === 3 || stage === 4)
-            const sensitivity = isFastStage ? MOON_SCROLL_SPEED : CAR_SCROLL_SPEED
 
             // --- Transitions ---
 
@@ -375,9 +365,11 @@ function IntroPage() {
                 }
             }
 
+            const targetScrollVelocity = currentFrames / TARGET_SCROLL_TRAVERSE_SEC
+            const sensitivity = targetScrollVelocity / WHEEL_DELTA_NORMALIZER
             state.current.velocity += e.deltaY * sensitivity
 
-            const maxSpeed = isFastStage ? MOON_MAX_VELOCITY : CAR_MAX_VELOCITY
+            const maxSpeed = targetScrollVelocity * MAX_SCROLL_MULTIPLIER
             if (state.current.velocity > maxSpeed) state.current.velocity = maxSpeed
             if (state.current.velocity < -maxSpeed) state.current.velocity = -maxSpeed
         }
